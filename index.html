@@ -1,105 +1,364 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>W3/Bilateral Project Mapping 2026 — Guide for P/As</title>
-
-  <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html, body {
-      width: 100%;
-      height: 100%;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      font-size: 14px;
-      color: #1a1a1a;
-      background: #f5f5f3;
-      padding: 2rem 1rem;
-      line-height: 1.6;
-    }
-
-    .card {
-      max-width: 780px;
-      margin: 0 auto;
-      background: #fff;
-      border-radius: 12px;
-      border: 0.5px solid rgba(0,0,0,0.12);
-      padding: 2rem;
-    }
-
-    /* ---- rest of your CSS (unchanged) ---- */
-
-    .header { margin-bottom: 1.5rem; }
-    .header strong { font-size: 17px; font-weight: 600; display: block; margin-bottom: 3px; }
-    .header span { font-size: 12px; color: #666; }
-
-    .tabs {
-      display: flex;
-      gap: 6px;
-      border-bottom: 1px solid #e0e0e0;
-      margin-bottom: 1.5rem;
-    }
-
-    .tab {
-      background: none;
-      border: none;
-      padding: 8px 16px;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      color: #666;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-    }
-
-    .tab.active {
-      color: #111;
-      border-bottom-color: #111;
-    }
-
-    .section { display: none; }
-    .section.active { display: block; }
-
-    /* (Everything else from your original file remains the same) */
-
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W3/bilateral project mapping 2026 — Guide for P/As</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; color: #1a1a1a; background: #f5f5f3; padding: 2rem 1rem; line-height: 1.6; }
+  .card { max-width: 780px; margin: 0 auto; background: #fff; border-radius: 12px; border: 0.5px solid rgba(0,0,0,0.12); padding: 2rem; }
+  .header { margin-bottom: 1.5rem; }
+  .header strong { font-size: 17px; font-weight: 600; display: block; margin-bottom: 3px; }
+  .header span { font-size: 12px; color: #666; }
+  .tabs { display: flex; gap: 6px; border-bottom: 1px solid #e0e0e0; margin-bottom: 1.5rem; }
+  .tab { background: none; border: none; padding: 8px 16px; font-size: 13px; font-weight: 500; cursor: pointer; color: #666; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .tab.active { color: #111; border-bottom-color: #111; }
+  .section { display: none; }
+  .section.active { display: block; }
+  /* Timeline */
+  .legend { display: flex; gap: 16px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .leg-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #666; }
+  .leg-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .timeline { position: relative; padding-left: 20px; border-left: 1.5px solid #ddd; }
+  .tl-item { position: relative; padding: 0 0 1.5rem 1.25rem; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-dot { position: absolute; left: -24px; top: 3px; width: 10px; height: 10px; border-radius: 50%; background: #fff; border: 2px solid #bbb; }
+  .tl-dot.done { background: #378ADD; border-color: #378ADD; }
+  .tl-dot.now { background: #639922; border-color: #639922; box-shadow: 0 0 0 3px rgba(99,153,34,.18); }
+  .tl-date { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 2px; }
+  .tl-title { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+  .tl-desc { font-size: 12px; color: #555; line-height: 1.6; margin-bottom: 6px; }
+  .tags { display: flex; gap: 5px; flex-wrap: wrap; }
+  .tag { font-size: 11px; padding: 2px 7px; border-radius: 4px; font-weight: 500; }
+  .tag-pa { background: #E6F1FB; color: #0C447C; }
+  .tag-centre { background: #EAF3DE; color: #27500A; }
+  .tag-gst { background: #FAEEDA; color: #633806; }
+  .tag-both { background: #F1EFE8; color: #444441; }
+  .tag-module { background: #EEEDFE; color: #3C3489; }
+  .note { font-size: 11px; font-style: italic; color: #999; margin-top: 3px; }
+  /* FAQ */
+  .faq-group { margin-bottom: 1.25rem; }
+  .faq-group-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: #888; margin-bottom: 8px; padding-bottom: 5px; border-bottom: 1px solid #eee; }
+  .faq-item { border-bottom: 1px solid #f0f0f0; }
+  .faq-q { width: 100%; background: none; border: none; text-align: left; padding: 10px 0; font-size: 13px; font-weight: 500; cursor: pointer; color: #111; display: flex; justify-content: space-between; align-items: center; gap: 8px; line-height: 1.4; }
+  .faq-chevron { font-size: 18px; color: #aaa; transition: transform .2s; flex-shrink: 0; }
+  .faq-q.open .faq-chevron { transform: rotate(90deg); }
+  .faq-a { display: none; font-size: 12px; color: #555; line-height: 1.7; padding-bottom: 12px; }
+  .faq-a.open { display: block; }
+  .highlight { background: #f5f7fa; border-left: 3px solid #378ADD; padding: 7px 11px; border-radius: 0 5px 5px 0; margin: 6px 0; font-size: 12px; color: #222; }
+  .confirmed { background: #EAF3DE; border-left: 3px solid #639922; padding: 7px 11px; border-radius: 0 5px 5px 0; margin: 6px 0; font-size: 12px; color: #1a3a0a; }
+  .tbc { background: #fffbf0; border-left: 3px solid #e8a020; padding: 7px 11px; border-radius: 0 5px 5px 0; margin: 6px 0; font-size: 12px; color: #5a3e00; }
+  .stat { display: inline-block; font-size: 15px; font-weight: 600; color: #111; margin: 2px 0; }
+  a { color: #185FA5; }
+  .footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee; font-size: 11px; color: #aaa; text-align: center; }
+</style>
 </head>
-
 <body>
-  <!-- ✅ Paste your FULL existing body content here, unchanged -->
-  <!-- This includes: header, tabs, timeline, FAQ, footer -->
-  <!-- Your content is already valid and works -->
-</body>
+<div class="card">
+
+  <div class="header">
+    <strong>W3/bilateral project mapping 2026</strong>
+    <span>Guide for Programmes &amp; Accelerators — updated from Overview V2, 30 April 2026</span>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('timeline',this)">Timeline</button>
+    <button class="tab" onclick="switchTab('faq',this)">FAQ</button>
+  </div>
+
+  <!-- TIMELINE -->
+  <div id="timeline" class="section active">
+    <div class="legend">
+      <div class="leg-item"><div class="leg-dot done"></div> Done</div>
+      <div class="leg-item"><div class="leg-dot now"></div> Now / active</div>
+      <div class="leg-item"><div class="leg-dot"></div> Upcoming</div>
+    </div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot done"></div>
+        <div class="tl-date">Feb–Mar 2026</div>
+        <div class="tl-title">AWG reconstituted · survey · GST briefing</div>
+        <div class="tl-desc">Lessons-learnt survey completed. Recommendations submitted to GST on 7 April. P/A Reflect guidance issued. Module design and process development in parallel.</div>
+        <div class="tags"><span class="tag tag-both">All parties</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot done"></div>
+        <div class="tl-date">By 30 April 2026</div>
+        <div class="tl-title">Centres validate Anaplan extract</div>
+        <div class="tl-desc">Centres validate the Nov–Dec 2025 Anaplan extract — the project list that underpins P/A Reflect review and Phase 1 signalling. Only active projects in this extract are eligible for mapping.</div>
+        <div class="tags"><span class="tag tag-centre">Centre action</span></div>
+        <div class="note">Centres with outstanding gaps (AfricaRice, ICARDA, ICRISAT, IITA, IFPRI) must finalise urgently. Contact: Melanie Glover (Anaplan data).</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot now"></div>
+        <div class="tl-date">22 April – 1 May 2026 — NOW</div>
+        <div class="tl-title">Phase 1: P/As complete signalling in signal module</div>
+        <div class="tl-desc">Log in and signal for each mapped project: keep as is (default — no action needed), increase, decrease, or remove. Add a short justification message to accompany any change. Download Excel export for records. Signal tool closes end of day 1 May and is then deactivated.</div>
+        <div class="tags"><span class="tag tag-pa">P/A action</span><span class="tag tag-module">Signal module</span></div>
+        <div class="note">Deadline: Friday 1 May · Signal module: cgiar-program-center-project-mapping.fly.dev · Login issues: Elvin Kohen</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">6 May 2026</div>
+        <div class="tl-title">P/A signals provided to centres as Excel</div>
+        <div class="tl-desc">PPT exports all P/A signals and provides them to centres as an Excel file so centres can begin preparation before the full mapping module opens on 18 May.</div>
+        <div class="tags"><span class="tag tag-both">PPT action</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">7 May 2026</div>
+        <div class="tl-title">AWG onboarding session on full mapping module</div>
+        <div class="tl-desc">Working Group meeting to onboard centres and P/As onto the full mapping module ahead of go-live on 18 May.</div>
+        <div class="tags"><span class="tag tag-both">All parties</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">18 May – 5 June 2026</div>
+        <div class="tl-title">Phase 2: centres complete mapping in full module</div>
+        <div class="tl-desc">Centres log in to project-mapping.cgiar.org, read P/A signals and new Anaplan project list, and map existing and new active projects to P/As — up to and optionally beyond 90% by value. One project can be mapped to a maximum of 3 P/As; total allocation across P/As cannot exceed 100%. PI involvement strongly encouraged. Centres may also withdraw projects that have ended or for other clearly stated reasons.</div>
+        <div class="tags"><span class="tag tag-centre">Centre action</span><span class="tag tag-module">Full mapping module</span></div>
+        <div class="note">Only active grants eligible — proposals excluded. Non-portfolio projects (non-CSP fee, infrastructure, IFRS depreciation) excluded from mapping and from 90% threshold calculation. Module issues: Enrico Bonaiuti.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">8–19 June 2026</div>
+        <div class="tl-title">Phase 3: P/As respond to centre mapping decisions</div>
+        <div class="tl-desc">P/As accept or reject each centre-proposed mapping via the full mapping module. Where mapping is agreed, P/As link the project directly to a TOC High-Level Output (HLO) or outcome in the module. Where parties disagree, the built-in chat function supports structured negotiation with a full audit trail.</div>
+        <div class="tags"><span class="tag tag-pa">P/A action</span><span class="tag tag-module">Full mapping module</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">22–26 June 2026</div>
+        <div class="tl-title">Phase 4: negotiation and close</div>
+        <div class="tl-desc">Remaining disagreements resolved bilaterally (~1 week). GST escalation available but rarely needed historically. Final close by 26 June.</div>
+        <div class="tags"><span class="tag tag-both">All parties</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">End June – July 2026</div>
+        <div class="tl-title">Close-out: PORB append · delegate assignments</div>
+        <div class="tl-desc">Updated W3/bilateral project list appended to ADAPT PORBs (no new PORB required) and made available through Portfolio Explorer. Completed mapping informs centre delegate assignments in July.</div>
+        <div class="tags"><span class="tag tag-both">All parties</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Q3 2026 onwards</div>
+        <div class="tl-title">Projected benefits integration · further dependencies</div>
+        <div class="tl-desc">Mapped projects systematically linked to P/A targets via scalable heuristics (e.g. $1m ≈ 5–10k households). Dynamic mapping (Anaplan → workflow trigger) targeted from 2027. Critical capabilities linkage TBC.</div>
+        <div class="tags"><span class="tag tag-gst">GST decision</span></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">By Q2 2027</div>
+        <div class="tl-title">KR1.7 delivered: 90% in 2026 technical reports</div>
+        <div class="tl-desc">90% of W3/bilaterally funded work (by value) included in 2026 P/A Technical Reports — the formal delivery of OKR KR1.7.</div>
+        <div class="tags"><span class="tag tag-pa">P/A action</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div id="faq" class="section">
+
+    <div class="faq-group">
+      <div class="faq-group-title">What we are doing and why</div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is the overall objective? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">By end of June 2026, deliver an updated mapping of W3/bilateral projects to Programmes and Accelerators covering <strong>at least 90% of each centre's portfolio by dollar value</strong>. This is a formally approved OKR (KR1.7). Two parts: (1) reviewing and signalling on existing 2025 mapped projects, and (2) centres mapping new projects from the updated Anaplan extract.<br><br>The completed mapping directly informs three confirmed downstream uses: <strong>centre delegate assignments in July</strong>, <strong>2026 technical reporting</strong>, and <strong>2026 projected benefits</strong>. Critical capabilities linkage is the remaining pending item.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Why 90%? Where does that number come from? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">The 90% target is a formally committed Key Result under CGIAR's OKR framework:
+          <div class="highlight"><strong>KR1.7</strong> — 90% of Centers' W3 and bilaterally funded work (by value) included in 2026 technical reports, by Q2 2027.</div>
+          This sets the ambition: CGIAR's technical reports should reflect the near-totality of what Centers are doing across all funding sources, not just W1/W2. The 2025–30 Portfolio explicitly aims to encompass all of CGIAR's work across all centres and all sources of funding.<br><br>In 2025, the 80% threshold was met (285 projects, ~25% of active projects by number). Going to at least 90% is likely to encompass 500–600 projects.<br><br><strong>GST confirmed:</strong> centres can map <em>any</em> active project within the 90% threshold — not just largest-to-smallest. Mapping above 90% is also permitted, though the delegate assignment threshold stays at 90%.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is the bigger strategic purpose of mapping? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">Mapping is one step in a broader process of portfolio alignment and cohesion-building — not a tick-box exercise. Three layers:
+          <div class="highlight"><strong>Administrative mapping</strong> — the mechanisms through which centres and P/As agree on which W3/bilat project fits where, and knock-on effects (delegate assignment, critical capabilities).</div>
+          <div class="highlight"><strong>Operational cohesion</strong> — W3/bilateral project results included in P/A Technical Reporting (what was achieved). This does <em>not</em> include planned W3/bilat deliverables in P/A PORBs.</div>
+          <div class="highlight"><strong>Design alignment</strong> — common interoperability building blocks (indicators, impact pathways) baked into project design from the start, reducing costs of retrofitting and double reporting. A key objective of the <a href="https://sites.google.com/cgxchange.org/cgiarprhub/meliaf-project" target="_blank">MELIAF project</a>.</div>
+          Mapping alone is not enough. Inviting mapped project PIs into P/A events and coordination calls is part of what makes mapping meaningful.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What will the mapping data be used for? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">Three uses are confirmed:
+          <div class="confirmed"><strong>Centre delegate assignments</strong> — July 2026, directly driven by completed mapping (threshold at 90%).</div>
+          <div class="confirmed"><strong>2026 technical reporting</strong> — at least 90% of W3/bilat work by value to be included in P/A reports by Q2 2027 (KR1.7).</div>
+          <div class="confirmed"><strong>2026 projected benefits</strong> — mapped projects systematically linked to P/A targets via scalable heuristics (e.g. $1m ≈ 5–10k households), applied in Q3 post-mapping.</div>
+          One item pending:
+          <div class="tbc"><strong>Critical capabilities (2026)</strong> — potential linkage to mapping outcomes, specifics not yet confirmed.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Has the AWG agreed on all of this? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">The core process — at least 90% mapping target, centre delegate assignment, technical reporting, and projected benefits integration — is agreed and underway. The GST has confirmed that centres can map any active projects within the threshold (not just largest-first) and that mapping can exceed 90%. The only remaining open item is the critical capabilities linkage.</div>
+      </div>
+    </div>
+
+    <div class="faq-group">
+      <div class="faq-group-title">Mapping rules</div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What projects are eligible to be mapped? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">Only <strong>active projects</strong> present in the validated November–December 2025 Anaplan extract are eligible. No proposals are allowed. Active projects started after December 2025 will be handled in the next mapping cycle.<br><br><strong>Non-portfolio projects</strong> are excluded: these are projects centres have indicated are not applicable for the CSP fee because they fall outside the science and research framework (e.g. infrastructure grants, IFRS depreciation). They are excluded from the mapping process <em>and</em> from the pool used to calculate the 90% value threshold.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can a project be mapped to more than one P/A? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">Yes — one project can be mapped to a maximum of <strong>three</strong> Programmes/Accelerators. The total allocation across all P/As for any one project cannot exceed 100%. If two P/As both signal an increase that would push the total above 100%, the centre makes the final call on how to resolve the allocation.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can centres map above 90%? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">Yes — the GST endorsed "at least 90%", so mapping above 90% is permitted and encouraged for portfolio cohesion and technical reporting purposes. The threshold for calculating centre delegate assignments stays at 90% — anything mapped above that does not change delegate allocation but counts for reporting and cohesion objectives.<br><br>Centres should be mindful of transaction costs — mapping more projects means more to report on effectively.</div>
+      </div>
+    </div>
+
+    <div class="faq-group">
+      <div class="faq-group-title">Using the signal module (closes 1 May)</div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is the signal module and how do I log in? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">A <strong>temporary</strong> tool open until 1 May 2026 for capturing P/A signals on existing mapped projects. Log in at: <a href="https://cgiar-program-center-project-mapping.fly.dev/" target="_blank">cgiar-program-center-project-mapping.fly.dev</a> using your programme-specific access code and password provided by Elvin Kohen. SSO is not available in this tool.<br><br>The <strong>full mapping module</strong> is a separate, permanent tool at <a href="https://project-mapping.cgiar.org/" target="_blank">project-mapping.cgiar.org</a> — going live on 18 May for centres. For questions: <a href="mailto:performanceandresults@cgiar.org">performanceandresults@cgiar.org</a>. Resources on the <a href="https://sites.google.com/cgxchange.org/cgiarprhub/w3bilats-project-mapping" target="_blank">P&amp;R Hub W3/Bilat page</a>.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What information do I see for each project? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">For each project: title (with description on hover), timeline, value, and a reporting indicator showing whether it reported results in the 2025 cycle. Full result detail is available via the Results Dashboard linked in the tool, or the CGIAR CG Results Dashboard. The original mapping rationale (complementarity and strategic benefits) is visible when you click into a project.<br><br>Fields sourced from Anaplan (dates, budget, etc.) are read-only — if any data looks wrong, it must be corrected in Anaplan first (contact: Melanie Glover).</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What do I actually have to do in the module? <span class="faq-chevron">›</span></button>
+        <div class="faq-a"><strong>Keep as is is the default</strong> — if you are happy with the current mapping, no action needed on that project. For changes:<br><br>
+        &bull; <strong>Increase or decrease percentage</strong> — use the slider or type a value. Add a short justification message and save.<br>
+        &bull; <strong>Remove</strong> — click remove (sets percentage to 0), add context, save.<br><br>
+        Every action is timestamped and creates an audit trail. An Excel export of your full project list with all signals is available for records or offline sharing with colleagues.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What criteria should I use when signalling? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">Two dimensions, each rated high / medium / low:
+          <div class="highlight"><strong>Complementarity of results</strong> — does the W3/bilat clearly contribute to the objectives and Theory of Change of your P/A? Does its topic fall within your remit?</div>
+          <div class="highlight"><strong>Efficiencies / strategic benefit</strong> — is there geographic focus overlap or strategic expansion potential? Is there partnership overlap or strategic expansion?</div>
+          These are the same criteria used in the original 2025 mapping and are embedded in the tool's comment function. Use them as the basis for any message you attach to a signal.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What about projects that ended in December 2025? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">These are still in the signal module — please signal on them anyway, as cost extensions may exist and their status is not always known. The full mapping module will show only projects active as of 1 January 2026; ended projects will be archived.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What if two P/As both want to increase the same project beyond 100%? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">Both signals are recorded. The centre then makes the final decision on the allocation — they see both signals and determine how to resolve the total. Use your message to explain your rationale clearly so the centre has the context to decide. Remember the total allocation across all P/As for any one project cannot exceed 100%.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">When do centres actually see my signal? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">Signals are not transmitted in real time. The PPT will provide centres with an Excel compilation of all P/A signals on <strong>6 May</strong>, so centres can begin prep work before the full module opens. Centres formally access all signals in the mapping module from <strong>18 May</strong>.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is the signal module linked to PORB and reporting tools? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">No — the signal module is a temporary, standalone tool for capturing P/A signals only. The full mapping module (project-mapping.cgiar.org, live 18 May) links to <strong>Anaplan</strong> (data input) and <strong>TOC</strong> (data output), which in turn feeds into Planning/PORB and reporting.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">A project was mapped but never reported any results — should I remove it? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">In 2025, only around <span class="stat">60%</span> of mapped W3/bilateral projects reported results integrated into P/A Technical Reports — a substantial gap. Reasons ranged from projects being too early in their cycle, to lack of awareness, to weak alignment. Use your Reflect process and available information (Results Dashboard, zero-draft tool) to inform your signal. If a project is mapped to more than one P/A, centres may have allocated reporting to a different one — check before signalling remove. Your message opens the conversation with the centre; it is not a unilateral decision.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I suggest adding a project not in my list? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">Not through the signal module. If a project has been reporting results to your P/A but was never formally mapped, your P/A director needs to contact the relevant centre directly — outside the tool. The new Anaplan extract (going to centres in May) is the mechanism for adding unmapped projects going forward.</div>
+      </div>
+    </div>
+
+    <div class="faq-group">
+      <div class="faq-group-title">Process and decisions</div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is this P/A-led or centre-led? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">Centre-led. P/As provide a signal — it is input for centres to consider, not a binding decision. In Phase 2 (18 May – 5 June), centres map projects and P/As accept or reject those proposals in Phase 3 (8–19 June). Where mapping is agreed, P/As link the project to a TOC High-Level Output (HLO) or outcome directly in the module. Disagreements are resolved via the built-in chat and if necessary escalated to the GST — though historically most cases have been resolved bilaterally.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can a P/A suggest increasing the mapping percentage? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">Yes. The signal module allows P/As to signal an increase in the mapped percentage for a project. Use the slider and attach a message explaining the rationale. The centre will receive this signal and decide how to act on it.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What happens to the 2026 PORB and the mapping? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">Once mapping closes at end of June, the PPT will append the updated W3/bilateral project list to your ADAPT PORB — no new PORB is required. The list will also be available through Portfolio Explorer. No further PORB action is needed right now.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How does mapping connect to centre delegate assignments? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">Centre delegates to P/As are assigned in July based directly on the completed mapping — which centres have projects mapped to which P/As (up to the 90% threshold) determines delegate positions. This is the most proximate confirmed dependency and the main reason the June deadline matters.<br><br>The PPT will share the centre delegate allocation formula so centres can see exactly how mapping informs assignment. Whether delegate assignments will be reviewed annually is not yet confirmed — the <a href="https://cgiar.sharepoint.com/:w:/s/PPUInterim/IQASYa1d8V5AQZwlWmTR6yWOAdt_sYC0USB3bIvBjWibN4s?e=ep24yA" target="_blank">Delegate Terms of Reference</a> do not specify a time limit.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Who is in the Alignment Working Group (AWG)? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">Largely a centre group, with representatives nominated since mid-2024: ABC (Annabelle Lhommeau/Ivana Cortesini), AfricaRice (Aminou Arouna), CIMMYT (Roberto Rocha), CIP (Richard Kalwande), ICARDA (Augusto Becerra/Enrico Bonaiuti), ICRISAT (Stanford Blade), IFPRI (Adam Kennedy), IITA (Bernard Vanlauwe/Sabra Lewis), ILRI (Siboniso Moyo), IRRI (Ben Pamatmat), IWMI (Najeeb Ullah), WorldFish (Jörn Schmidt). Two P/A representatives: Rodrigue Yossa (Sustainable Animal and Aquatic Foods) and Timothy Krupnik (Scaling for Impact). Coordinated by the PPT.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What about the incentive to map and report? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">Only ~60% of mapped projects contributed results to 2025 P/A Technical Reports. The GST has been asked to develop clear messaging and an incentive framework to make reporting W3/bilateral results expected rather than optional — at system level and centre level. The AWG also flagged a P/A-side lever: inviting mapped project PIs into P/A events, coordination calls and planning processes so mapping is visibly useful to the people doing the work. Modalities for W3/bilat reporting from 2026 will be refined based on 2025 experience.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Who do I contact for help? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">
+          <div class="highlight"><strong>General process / escalation</strong> — Julien Colomer (PPT lead): <a href="mailto:performanceandresults@cgiar.org">performanceandresults@cgiar.org</a></div>
+          <div class="highlight"><strong>Signal module access &amp; login</strong> — Elvin Kohen: direct or via in-tool feedback form</div>
+          <div class="highlight"><strong>Mapping module / data integration</strong> — Enrico Bonaiuti (ICARDA): via PPT</div>
+          <div class="highlight"><strong>Anaplan data validation</strong> — Melanie Glover: via PPT</div>
+          <div class="highlight"><strong>P&amp;R Hub content &amp; FAQ</strong> — Portfolio Performance Team: <a href="mailto:performanceandresults@cgiar.org">performanceandresults@cgiar.org</a></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">Portfolio Performance and Results Team (PPT) · CGIAR Office of the Chief Scientist · Version 1, April 2026</div>
+</div>
 
 <script>
-  function switchTab(id, btn) {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    btn.classList.add('active');
-  }
-
-  function toggleFaq(btn) {
-    const a = btn.nextElementSibling;
-    const open = a.classList.contains('open');
-
-    document.querySelectorAll('.faq-a.open').forEach(el => el.classList.remove('open'));
-    document.querySelectorAll('.faq-q.open').forEach(el => el.classList.remove('open'));
-
-    if (!open) {
-      a.classList.add('open');
-      btn.classList.add('open');
-    }
-  }
+function switchTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+function toggleFaq(btn) {
+  const a = btn.nextElementSibling;
+  const open = a.classList.contains('open');
+  document.querySelectorAll('.faq-a.open').forEach(el => el.classList.remove('open'));
+  document.querySelectorAll('.faq-q.open').forEach(el => el.classList.remove('open'));
+  if (!open) { a.classList.add('open'); btn.classList.add('open'); }
+}
 </script>
 
+</div>
+</body>
 </html>
-``
